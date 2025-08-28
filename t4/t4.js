@@ -796,7 +796,7 @@ function success(pos) {
       distance(userlocation, b.location.coordinates)
     )};
   }
-for const restaurants of restaurants) {
+for (const restaurants of restaurants) {
   const rivi = document.createElement('tr');
 
   const nimisolu = document.createElement('td');
