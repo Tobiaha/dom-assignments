@@ -1,3 +1,4 @@
+'use strict';
 // array for todo list
 const todoList = [
   {
