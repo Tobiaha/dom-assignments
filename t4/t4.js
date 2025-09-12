@@ -770,44 +770,53 @@ const restaurants = [
     __v: 0,
   },
 ];
+
+// your code here
+
+function distance(point1, point2) {
+  return Math.sqrt((point2[0] - point1[0]) ** 2 + (point2[1] - point1[1]) ** 2);
+}
+
 const options = {
   enableHighAccuracy: true,
   timeout: 5000,
   maximumAge: 0,
 };
+let userLocation;
 
-// your code here
 function success(pos) {
   const {coords} = pos;
-  console.log(coords);
 
-  const userlocation = [coords.longitude, coords.latitude];
-  console.log(userlocation);
+  userLocation = [coords.longitude, coords.latitude];
+  console.log(userLocation);
 
   console.log(restaurants[0].location.coordinates);
 
-  console.log(distance(userlocation, restaurants[1].location.coordinates)); // etäisyys
-}
-  //sorting
+  console.log(distance(userLocation, restaurants[1].location.coordinates)); // etäisyys
 
-  restaurants.sort(function(a, b) {
-    return {
-      distance(userlocation, a.location.coordinates -
-      distance(userlocation, b.location.coordinates)
-    )};
+  // sorting
+
+  restaurants.sort(function (a, b) {
+    return (
+      distance(userLocation, a.location.coordinates) -
+      distance(userLocation, b.location.coordinates)
+    );
+  });
+
+  console.log(restaurants);
+
+  for (const restaurant of restaurants) {
+    const rivi = document.createElement('tr');
+
+    const nimisolu = document.createElement('td');
+    nimisolu.innerText = restaurant.name;
+
+    const osoitesolu = document.createElement('td');
+    osoitesolu.innerText = `${restaurant.address} ${restaurant.city}`;
+
+    rivi.append(nimisolu, osoitesolu);
+    document.querySelector('#target').appendChild(rivi);
   }
-for (const restaurants of restaurants) {
-  const rivi = document.createElement('tr');
-
-  const nimisolu = document.createElement('td');
-  nimisolu.innerText = restaurants.name;
-
-  osoitesolu = document.createElement('td');
-osoitesolu.innerText = `${restaurants.address} ${restaurants.city}`;
-
-rivi.append({nimisolu, osoitesolu});
-document.querySelector('#target').appendChild(rivi);
-
 }
 
 function error(err) {
@@ -815,7 +824,3 @@ function error(err) {
 }
 
 navigator.geolocation.getCurrentPosition(success, error, options);
-
-function distance(point1, point2) {
-  return Math.sqrt((point2[0] - point1[0]) ** 2 + (point2[1] - point1[1]) ** 2);
-}
