@@ -781,12 +781,16 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 for (const restaurant of restaurants) {
-  const marker = L.marker(restaurants[0].location.coordinates.reverse()).addTo(
-    map
-    const article = document.createElement('article');
-      const nimi = document.createElement('h2');
-      nimi.innerText = restaurant.name;
-      article.append(nimi);
-      marker.bindPopup(article);
+  const marker = L.marker(restaurant.location.coordinates.reverse()).addTo(map);
+
+  const popupContent = `
+    <article>
+      <h3>${restaurant.name}</h3>
+      <p>${restaurant.address}, ${restaurant.city}</p>
+    </article>
+    `;
+
+  marker.bindPopup(popupContent);
 }
-//address vielä
+
+// address vielä
